@@ -47,9 +47,18 @@ const plugins = [
     /** @type {import('@medusajs/admin').PluginOptions} */
     options: {
       autoRebuild: true,
-      
+      serve: false,
+      backend: "https://backend-stock-pjg4.onrender.com",
+      path: "/app",
+      outDir: "build",
       develop: {
         open: process.env.OPEN_BROWSER !== "false",
+        open: false,
+        port: 7001,
+        logLevel: "error",
+        stats: "normal",
+        allowedHosts: "auto",
+        webSocketURL: undefined,
         
       },
     },
@@ -78,9 +87,7 @@ const projectConfig = {
   store_cors: STORE_CORS,
   database_url: DATABASE_URL,
   admin_cors: ADMIN_CORS,
-  database_logging: [
-    "query", "error", "warn", "info", "log", "migration"
-  ],
+ 
   database_extra: process.env.NODE_ENV !== "development" ?
       {
         ssl: {
