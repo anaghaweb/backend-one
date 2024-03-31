@@ -100,6 +100,13 @@ const projectConfig = {
 
 /** @type {import('@medusajs/medusa').ConfigModule} */
 module.exports = {
+  featureFlags: {
+    tax_inclusive_pricing: true,
+    product_categories:true,
+    order_editing:true,
+    sales_channels:true,
+    publishable_api_keys:true,
+  },
   projectConfig,
   plugins,
   modules,

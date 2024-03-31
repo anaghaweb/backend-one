@@ -18,7 +18,8 @@
     "jsx": "react-jsx",
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "checkJs": false
+    "checkJs": false,
+    "noEmit": false,
   },
   "include": ["src/"],
   "exclude": [
