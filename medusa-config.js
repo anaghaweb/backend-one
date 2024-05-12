@@ -26,7 +26,7 @@ const ADMIN_CORS =
   process.env.ADMIN_CORS || "https://stock-admin-chi.vercel.app/";
 
 // CORS to avoid issues when consuming Medusa from a client
-const STORE_CORS = process.env.STORE_CORS || "http://localhost:8000";
+const STORE_CORS = process.env.STORE_CORS || "https://medusa-fe-default-ex0z2b1zk-anaghastaffs-projects.vercel.app";
 
 const DATABASE_URL =
   process.env.DATABASE_URL || "postgres://postgres.oexbuheeoqkcnyxyahkh:supaBase.123@@aws-0-ap-south-1.pooler.supabase.com:5432/postgres";
@@ -62,7 +62,16 @@ const plugins = [
         
       },
     },
-  },
+  }, 
+    {  
+    resolve: `medusa-payment-stripe`,  
+    options: {  
+    api_key: STRIPE_API_KEY,  
+    webhook_secret: STRIPE_WEBHOOK_SECRET,  
+    },  
+    },  
+   
+   
 ];
 
 const modules = {
