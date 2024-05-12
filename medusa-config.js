@@ -23,15 +23,15 @@ try {
 
 // CORS when consuming Medusa from admin
 const ADMIN_CORS =
-  process.env.ADMIN_CORS || "https://stock-admin-chi.vercel.app/";
+  ADMIN_CORS || "https://stock-admin-chi.vercel.app/";
 
 // CORS to avoid issues when consuming Medusa from a client
-const STORE_CORS = process.env.STORE_CORS || "https://medusa-fe-default-ex0z2b1zk-anaghastaffs-projects.vercel.app";
+const STORE_CORS = STORE_CORS || "http://192.168.0.103:3000";
 
 const DATABASE_URL =
-  process.env.DATABASE_URL || "postgres://postgres.oexbuheeoqkcnyxyahkh:supaBase.123@@aws-0-ap-south-1.pooler.supabase.com:5432/postgres";
+  DATABASE_URL || "postgres://postgres.oexbuheeoqkcnyxyahkh:supaBase.123@@aws-0-ap-south-1.pooler.supabase.com:5432/postgres";
 
-const REDIS_URL = process.env.REDIS_URL || "redis://red-cnirq6821fec73ctpdr0:6379";
+const REDIS_URL = REDIS_URL || "redis://red-cnirq6821fec73ctpdr0:6379";
 
 const plugins = [
   `medusa-fulfillment-manual`,
@@ -69,8 +69,8 @@ const plugins = [
     api_key: STRIPE_API_KEY,  
     webhook_secret: STRIPE_WEBHOOK_SECRET,  
     },  
-    },  
-   
+    }
+  
    
 ];
 
@@ -91,13 +91,13 @@ const modules = {
 
 /** @type {import('@medusajs/medusa').ConfigModule["projectConfig"]} */
 const projectConfig = {
-  jwtSecret: process.env.JWT_SECRET,
-  cookieSecret: process.env.COOKIE_SECRET,
+  jwtSecret: JWT_SECRET,
+  cookieSecret: COOKIE_SECRET,
   store_cors: STORE_CORS,
   database_url: DATABASE_URL,
   admin_cors: ADMIN_CORS,
  
-  database_extra: process.env.NODE_ENV !== "development" ?
+  database_extra: NODE_ENV !== "development" ?
       {
         ssl: {
           rejectUnauthorized: false,
