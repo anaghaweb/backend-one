@@ -36,12 +36,12 @@ const REDIS_URL = REDIS_URL || "redis://red-cnirq6821fec73ctpdr0:6379";
 const plugins = [
   `medusa-fulfillment-manual`,
   `medusa-payment-manual`,
-  // {
-  //   resolve: `@medusajs/file-local`,
-  //   options: {
-  //     upload_dir: "uploads",
-  //   },
-  // },
+  {
+    resolve: `@medusajs/file-local`,
+    options: {
+      upload_dir: "uploads",
+    },
+  },
   {
     resolve: "@medusajs/admin",
     /** @type {import('@medusajs/admin').PluginOptions} */
@@ -49,7 +49,7 @@ const plugins = [
       autoRebuild: true,
       serve: false,
       backend: "https://backend-stock-pjg4.onrender.com",
-      path: "/app",
+      path: "/admin",
       outDir: "build",
       develop: {
         open: OPEN_BROWSER !== "false",
@@ -63,13 +63,13 @@ const plugins = [
       },
     },
   }, 
-  // {
-  //   resolve: `medusa-payment-stripe`,
-  //   options: {
-  //     api_key: STRIPE_API_KEY,
-  //     webhook_secret: STRIPE_WEBHOOK_SECRET,
-  //   },
-  // },   
+  {
+    resolve: `medusa-payment-stripe`,
+    options: {
+      api_key: STRIPE_API_KEY,
+      webhook_secret: STRIPE_WEBHOOK_SECRET,
+    },
+  },   
 ];
 
 const modules = {
