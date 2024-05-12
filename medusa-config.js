@@ -34,8 +34,8 @@ const DATABASE_URL =
 const REDIS_URL = REDIS_URL || "redis://red-cnirq6821fec73ctpdr0:6379";
 
 const plugins = [
-  `medusa-fulfillment-manual`,
-  `medusa-payment-manual`,
+  // `medusa-fulfillment-manual`,
+  // `medusa-payment-manual`,
   {
     resolve: `@medusajs/file-local`,
     options: {
