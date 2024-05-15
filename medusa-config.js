@@ -48,7 +48,7 @@ const plugins = [
     options: {
       autoRebuild: true,
       serve: false,
-      backend: "https://backend-stock-pjg4.onrender.com",
+      backend: process.env.MEDUSA_BACKEND_URL || "https://backend-stock-pjg4.onrender.com",
       path: "/app",
       outDir: "build",
       develop: {

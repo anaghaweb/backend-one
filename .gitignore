@@ -1,5 +1,6 @@
 /dist
 .env
+.env.template
 .DS_Store
 /uploads
 /node_modules
@@ -12,7 +13,7 @@ coverage
 !src/**
 
 ./tsconfig.tsbuildinfo
-package-lock.json
+
 yarn.lock
 medusa-db.sql
 build
