@@ -8,7 +8,8 @@ const stripe = new Stripe(process.env.STRIPE_API_KEY!, {
   
 export async function POST (req:MedusaRequest, res:MedusaResponse) {
  
-    const { cartId } = await req.params;
+    const { cartId } = await req.body;
+    console.log("cart ID", cartId)
     const cartService  =  req.scope.resolve<CartService>("cartService");
     const cart = await cartService.retrieve(cartId);
     const session = cart?.payment_session as PaymentSession
