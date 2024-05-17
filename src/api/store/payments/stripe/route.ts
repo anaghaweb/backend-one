@@ -13,6 +13,8 @@ export async function POST (req:MedusaRequest, res:MedusaResponse) {
     const cartService  =  req.scope.resolve<CartService>("cartService");
     const cart = await cartService.retrieve(cartId);
     const session = cart?.payment_session as PaymentSession
+
+    console.log("session provider id", session?.provider_id)
   // Create a PaymentIntent with the order amount and currency
   
     if(!cart){
