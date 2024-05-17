@@ -12,22 +12,23 @@ export async function POST (req:MedusaRequest, res:MedusaResponse) {
     console.log("cart ID", cartId)
     const cartService  =  req.scope.resolve<CartService>("cartService");
     const cart = await cartService.retrieve(cartId);
-    const session = cart?.payment_session
-
-    console.log("session provider id", cart?.id)
+    const session = cart?.payment_session as PaymentSession
+    const id = session.data.id as string;
+    console.log("session provider data", session?.data.id, session?.data.client_secret, id) 
+    
   // Create a PaymentIntent with the order amount and currency
   
     if(!cart){
         return null
     }
 
-    if(!session?.data?.id || !session){
+    if(session?.data.id === null){
       return res.json({error:"Payment Intent not received from payment form"})
     }
   try{
    
     const paymentIntent = await stripe.paymentIntents.update(
-      session?.data?.id as string ,
+      id ,
      {
        description: "service Transaction", 
 
