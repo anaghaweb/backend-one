@@ -13,8 +13,8 @@ export async function POST (req:MedusaRequest, res:MedusaResponse) {
     const cartService  =  req.scope.resolve<CartService>("cartService");
     const cart = await cartService.retrieve(cartId);
     const session = cart?.payment_session as PaymentSession
-    const id = session.data.id as string;
-    console.log("session provider data", session?.data.id, session?.data.client_secret, id) 
+    const id = session?.data?.id as string;
+    console.log("session provider data", session?.data?.id, session?.data?.client_secret, id) 
     
   // Create a PaymentIntent with the order amount and currency
   
@@ -22,7 +22,7 @@ export async function POST (req:MedusaRequest, res:MedusaResponse) {
         return null
     }
 
-    if(session?.data.id === null){
+    if(id === null){
       return res.json({error:"Payment Intent not received from payment form"})
     }
   try{
