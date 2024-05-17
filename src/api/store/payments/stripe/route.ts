@@ -12,7 +12,7 @@ export async function POST (req:MedusaRequest, res:MedusaResponse) {
     console.log("cart ID", cartId)
     const cartService  =  req.scope.resolve<CartService>("cartService");
     const cart = await cartService.retrieve(cartId);
-    const session = cart?.payment_session
+    const session = cart?.payment_session;
     const id = session?.data?.id as string;
     console.log("session provider data", session?.data?.id, session?.data?.client_secret, id) 
     
