@@ -23,7 +23,7 @@ try {
 
 // CORS when consuming Medusa from admin
 const ADMIN_CORS =
-  process.env.ADMIN_CORS || "https://stock-admin-chi.vercel.app/";
+  process.env.ADMIN_CORS || "https://stock-admin-chi.vercel.app";
 
 // CORS to avoid issues when consuming Medusa from a client
 const STORE_CORS = process.env.STORE_CORS || "http://192.168.0.103:3000";
@@ -48,7 +48,7 @@ const plugins = [
     options: {
       autoRebuild: true,
       serve: false,
-      backend: process.env.MEDUSA_BACKEND_URL || "https://backend-stock-pjg4.onrender.com",
+      backend: process.env.MEDUSA_ADMIN_BACKEND_URL,
       path: "/app",
       outDir: "build",
       develop: {
@@ -66,8 +66,8 @@ const plugins = [
   {
     resolve: `medusa-payment-stripe`,
     options: {
-      api_key: process.env.STRIPE_API_KEY || "sk_test_51PGZbBSDkHFVkRmqkMohfQX19fpNcqnJKayXOc5CAjb1wlRqA7Bkqjx1fP3g7pz8NYwSGvvpKqYAGjX1oyBhS0h400VKlKw9Ld",
-      webhook_secret: process.env.STRIPE_WEBHOOK_SECRET || "we_1PGcAZSDkHFVkRmqljkUx9iX",
+      api_key: process.env.STRIPE_API_KEY ,
+      webhook_secret: process.env.STRIPE_WEBHOOK_SECRET ,
       description:'ecommerce transaction'
     },
   },
