@@ -1,4 +1,4 @@
-import { CartService, MedusaRequest, MedusaResponse } from "@medusajs/medusa";
+import { CartService, MedusaRequest, MedusaResponse, type PaymentSession } from "@medusajs/medusa";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_API_KEY!, {
@@ -6,58 +6,56 @@ const stripe = new Stripe(process.env.STRIPE_API_KEY!, {
   });
 
   
-export default async function POST(req:MedusaRequest, res:MedusaResponse) {
+export async function POST (req:MedusaRequest, res:MedusaResponse) {
  
-    const {cartId} = await req.params;
+    const { cartId } = await req.params;
     const cartService  =  req.scope.resolve<CartService>("cartService");
     const cart = await cartService.retrieve(cartId);
-
+    const session = cart?.payment_session as PaymentSession
   // Create a PaymentIntent with the order amount and currency
   
     if(!cart){
         return null
     }
-  try{
-    const customer = await stripe.customers.create({
-        name:  cart?.billing_address?.first_name + " " + cart?.billing_address?.last_name ,  
-        email:cart?.email,
-        address:  {
-            line1: cart?.billing_address?.address_1 ?? undefined  ,
-            postal_code: cart?.billing_address?.postal_code ?? undefined,
-            city: cart?.billing_address?.city ?? undefined,
-            state: cart?.billing_address?.province || " " ,
-            country:cart?.billing_address?.country_code ?? undefined ,
-          
-        },
-     
-    });
 
-    const paymentIntent = await stripe.paymentIntents.create({
-        description: "ecommerce Transaction", 
-        shipping: {
-            name: cart?.shipping_address?.first_name + "" + cart?.shipping_address?.last_name ,
-            address: {
-              line1: cart?.shipping_address?.address_1 ?? undefined  ,
-              postal_code: cart?.shipping_address?.postal_code ?? undefined,
-              city: cart?.shipping_address?.city ?? undefined,
-              state: cart?.shipping_address?.province || " " ,
-              country:cart?.shipping_address?.country_code ?? undefined ,
-            },
-          },
-          
-         customer: customer.id,
-          amount: cart?.total ?? 0,      
-          currency: cart?.region.currency_code ?? undefined ,
-         automatic_payment_methods:{
-          enabled:true,
+    if(!session?.data?.id || !session){
+      return res.json({error:"Payment Intent not received from payment form"})
+    }
+  try{
+   
+    const paymentIntent = await stripe.paymentIntents.update(
+      session?.data?.id as string ,
+     {
+       description: "service Transaction", 
+
+       shipping: {
+           name: cart?.shipping_address?.first_name + "" + cart?.shipping_address?.last_name ,
+           address: {
+             line1: cart?.shipping_address?.address_1 ?? undefined  ,
+             postal_code: cart?.shipping_address?.postal_code ?? undefined,
+             city: cart?.shipping_address?.city ?? undefined,
+             state: cart?.shipping_address?.province ?? "ABC" ,
+             country:cart?.shipping_address?.country_code ?? undefined ,
+           },
          },
-      });
+        
+        customer: session?.data?.customer as string,
+         amount: cart?.total ?? 0,      
+         currency: cart?.region.currency_code.toLowerCase() ,
+         metadata:{
+           medusa_customer_id:cart?.customer_id
+         },
+       
+     });
+     console.log("paymentIntent.client_secret -",paymentIntent.client_secret)
       return res.status(200).json({
         clientSecret: paymentIntent.client_secret,
         
       });
   }
   catch(error){
-    return res.json({error})
+    console.error(error);
+    console.log(error)
+    return res.json({error: "Error creating payment intent"})
   }
 };
