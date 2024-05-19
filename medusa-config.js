@@ -53,7 +53,7 @@ const plugins = [
       outDir: "build",
       develop: {
         open: process.env.OPEN_BROWSER !== "false",
-        open: false,
+        
         port: 7001,
         logLevel: "error",
         stats: "normal",
@@ -68,17 +68,17 @@ const plugins = [
     options: {
       api_key: process.env.STRIPE_API_KEY ,
       webhook_secret: process.env.STRIPE_WEBHOOK_SECRET ,
-      description:'ecommerce transaction'
+      
     },
   },
   {
     resolve:`medusa-payment-paypal`,
-    options:{
+    options: {
       sandbox: process.env.PAYPAL_SANDBOX,
       clientId: process.env.PAYPAL_CLIENT_ID,
       clientSecret: process.env.PAYPAL_CLIENT_SECRET,
       authWebhookId: process.env.PAYPAL_AUTH_WEBHOOK_ID,
-    }
+    },
   },
 ];
 
