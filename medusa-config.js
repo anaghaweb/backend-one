@@ -33,6 +33,8 @@ const DATABASE_URL =
 
 const REDIS_URL = process.env.REDIS_URL || "redis://red-cnirq6821fec73ctpdr0:6379";
 
+const AUTH_CORS=/vercel\.app$/
+
 const plugins = [
   `medusa-fulfillment-manual`,
   `medusa-payment-manual`,
@@ -104,15 +106,23 @@ const projectConfig = {
   store_cors: STORE_CORS,
   database_url: DATABASE_URL,
   admin_cors: ADMIN_CORS,
- 
-  database_extra: process.env.NODE_ENV !== "development" ?
-      {
-        ssl: {
-          rejectUnauthorized: false,
-        },
-      } : {},
+  auth_cors: AUTH_CORS,
   // Uncomment the following lines to enable REDIS
-   redis_url: REDIS_URL
+  redis_url: REDIS_URL,
+  worker_mode: "shared",
+  // database_extra: process.env.NODE_ENV !== "development" ?
+  //     {
+  //       ssl: {
+  //         rejectUnauthorized: false,
+  //       },
+  //     } : {},
+  
+   http_compression: {
+    enabled: true,
+    level: 6,
+    memLevel: 8,
+    threshold: 1024,
+  },
 };
 
 /** @type {import('@medusajs/medusa').ConfigModule} */
