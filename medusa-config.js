@@ -54,13 +54,13 @@ const plugins = [
       path: "/app",
       outDir: "build",
       develop: {
-        open: process.env.OPEN_BROWSER !== "false",    
+        open: false,    
         port: 7001,
         logLevel: "error",
-        stats: "normal",
+        stats: "debug",
         allowedHosts: "auto",
         webSocketURL: undefined,
-        
+        host: process.env.MEDUSA_ADMIN_BACKEND_URL
       },
     },
   },
