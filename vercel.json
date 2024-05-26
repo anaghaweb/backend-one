@@ -1,8 +1,4 @@
 {
-    "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }],
-    "functions": {
-      "*": {
-        "maxDuration": 60
-      }
-    }
+    "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+    
   }
