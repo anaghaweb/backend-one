@@ -21,19 +21,19 @@ try {
   dotenv.config({ path: process.cwd() + "/" + ENV_FILE_NAME });
 } catch (e) {}
 
-// CORS when consuming Medusa from admin
+//CORS when consuming Medusa from admin
 const ADMIN_CORS =
-  process.env.ADMIN_CORS || "https://stock-admin-chi.vercel.app";
+  process.env.ADMIN_CORS;
+
+  const AUTH_CORS = process.env.AUTH_CORS;
 
 // CORS to avoid issues when consuming Medusa from a client
-const STORE_CORS = process.env.STORE_CORS || "http://192.168.0.103:3000";
+const STORE_CORS = process.env.STORE_CORS;
 
 const DATABASE_URL =
   process.env.DATABASE_URL || "postgres://postgres.oexbuheeoqkcnyxyahkh:supaBase.123@@aws-0-ap-south-1.pooler.supabase.com:5432/postgres";
 
 const REDIS_URL = process.env.REDIS_URL || "redis://red-cnirq6821fec73ctpdr0:6379";
-
-const AUTH_CORS=/vercel\.app$/
 
 const plugins = [
   `medusa-fulfillment-manual`,
@@ -54,8 +54,7 @@ const plugins = [
       path: "/app",
       outDir: "build",
       develop: {
-        open: process.env.OPEN_BROWSER !== "false",
-        
+        open: process.env.OPEN_BROWSER !== "false",    
         port: 7001,
         logLevel: "error",
         stats: "normal",
