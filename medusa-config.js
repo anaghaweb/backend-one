@@ -19,13 +19,13 @@ switch (process.env.NODE_ENV) {
 
 try {
   dotenv.config({ path: process.cwd() + "/" + ENV_FILE_NAME });
-} catch (e) {}
+} catch (e) { }
 
 //CORS when consuming Medusa from admin
 const ADMIN_CORS =
   process.env.ADMIN_CORS;
 
-  const AUTH_CORS = process.env.AUTH_CORS;
+const AUTH_CORS = process.env.AUTH_CORS;
 
 // CORS to avoid issues when consuming Medusa from a client
 const STORE_CORS = process.env.STORE_CORS;
@@ -54,7 +54,7 @@ const plugins = [
       path: "/app",
       outDir: "build",
       develop: {
-        open: false,    
+        open: false,
         port: 7001,
         logLevel: "error",
         stats: "debug",
@@ -67,13 +67,13 @@ const plugins = [
   {
     resolve: `medusa-payment-stripe`,
     options: {
-      api_key: process.env.STRIPE_API_KEY ,
-      webhook_secret: process.env.STRIPE_WEBHOOK_SECRET ,
-      
+      api_key: process.env.STRIPE_API_KEY,
+      webhook_secret: process.env.STRIPE_WEBHOOK_SECRET,
+
     },
   },
   {
-    resolve:`medusa-payment-paypal`,
+    resolve: `medusa-payment-paypal`,
     options: {
       sandbox: process.env.PAYPAL_SANDBOX,
       clientId: process.env.PAYPAL_CLIENT_ID,
@@ -110,21 +110,21 @@ const projectConfig = {
   redis_url: REDIS_URL,
   worker_mode: "shared",
   database_logging: [
-    "query", "error", 'schema','warn', 'log', 'info'
+     "error", 'schema', 'warn', 'log'
   ],
   database_driver_options:
-      process.env.NODE_ENV !== "development"
-        ? { connection: { ssl: { rejectUnauthorized: false } } }
-        : {},
+    process.env.NODE_ENV !== "development"
+      ? { connection: { ssl: { rejectUnauthorized: false } } }
+      : {},
 
-        database_extra: process.env.NODE_ENV !== "development" ?
-      {
-        ssl: {
-          rejectUnauthorized: false,
-        },
-      } : {},
-  
-   http_compression: {
+  database_extra: process.env.NODE_ENV !== "development" ?
+    {
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    } : {},
+
+  http_compression: {
     enabled: true,
     level: 6,
     memLevel: 8,
@@ -136,10 +136,10 @@ const projectConfig = {
 module.exports = {
   featureFlags: {
     tax_inclusive_pricing: true,
-    product_categories:true,
-    order_editing:true,
-    sales_channels:true,
-    publishable_api_keys:true,
+    product_categories: true,
+    order_editing: true,
+    sales_channels: true,
+    publishable_api_keys: true,
   },
   projectConfig,
   plugins,
