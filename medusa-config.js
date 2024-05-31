@@ -81,6 +81,9 @@ const plugins = [
       authWebhookId: process.env.PAYPAL_AUTH_WEBHOOK_ID,
     },
   },
+  {
+    resolve: `medusa-plugin-wishlist`,
+  }
 ];
 
 const modules = {
