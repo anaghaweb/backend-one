@@ -106,24 +106,10 @@ const projectConfig = {
   database_url: DATABASE_URL,
   admin_cors: ADMIN_CORS,
   auth_cors: AUTH_CORS,
+  worker_mode: process.env.MEDUSA_WORKER_MODE,
   // Uncomment the following lines to enable REDIS
   redis_url: REDIS_URL,
-  worker_mode: "shared",
-  database_logging: [
-     "error", 'schema', 'warn', 'log'
-  ],
-  database_driver_options:
-    process.env.NODE_ENV !== "development"
-      ? { connection: { ssl: { rejectUnauthorized: false } } }
-      : {},
-
-  database_extra: process.env.NODE_ENV !== "development" ?
-    {
-      ssl: {
-        rejectUnauthorized: false,
-      },
-    } : {},
-
+  
   http_compression: {
     enabled: true,
     level: 6,
