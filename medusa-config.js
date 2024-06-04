@@ -80,7 +80,14 @@ const plugins = [
       clientSecret: process.env.PAYPAL_CLIENT_SECRET,
       authWebhookId: process.env.PAYPAL_AUTH_WEBHOOK_ID,
     },
-  }
+  },
+  {
+  resolve: 'medusa-plugin-variant-images',
+  options: {
+    enableUI: true,
+  },
+}
+
 ];
 
 // const modules = {
