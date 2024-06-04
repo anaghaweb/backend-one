@@ -2,7 +2,7 @@ import type { MedusaRequest, MedusaResponse } from "@medusajs/medusa";
 import { EntityManager } from "typeorm";
 
 import OnboardingService from "../../../services/onboarding";
-
+import { UpdateOnboardingStateInput } from "src/types/onboarding";
 export async function GET(req: MedusaRequest, res: MedusaResponse) {
   const onboardingService: OnboardingService =
     req.scope.resolve("onboardingService");
@@ -20,7 +20,7 @@ export async function POST(req: MedusaRequest, res: MedusaResponse) {
   const status = await manager.transaction(async (transactionManager) => {
     return await onboardingService
       .withTransaction(transactionManager)
-      .update(req.body);
+      .update(req.body as UpdateOnboardingStateInput);
   });
 
   res.status(200).json({ status });
