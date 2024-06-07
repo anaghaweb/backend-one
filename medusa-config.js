@@ -88,13 +88,7 @@ const plugins = [
         api_secret: process.env.CLOUDINARY_API_SECRET,
         secure: process.env.CLOUDINARY_SECURE,
     },
-},
-{
-  resolve: 'medusa-plugin-variant-images',
-  options: {
-    enableUI: true,
-  },
-},
+}
 ];
 
 const modules = {
