@@ -24,7 +24,6 @@ const loaders = require("@medusajs/medusa/dist/loaders/index").default
           console.log(`Server is ready on port: ${port}`)
         })
       )
-
       // Handle graceful shutdown
       const gracefulShutDown = () => {
         server

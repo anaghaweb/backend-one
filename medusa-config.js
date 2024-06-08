@@ -36,7 +36,7 @@ const DATABASE_URL =
 
 const plugins = [
   `medusa-fulfillment-manual`,
-  `medusa-payment-manual`,
+  `medusa-payment-manual`, 
   {
     resolve: `@medusajs/file-local`,
     options: {
@@ -88,7 +88,7 @@ const plugins = [
         api_secret: process.env.CLOUDINARY_API_SECRET,
         secure: process.env.CLOUDINARY_SECURE,
     },
-}
+},
 ];
 
 const modules = {
@@ -107,7 +107,7 @@ const modules = {
 };
 
 /** @type {import('@medusajs/medusa').ConfigModule["projectConfig"]} */
-const projectConfig = {
+export const projectConfig = {
   jwtSecret: process.env.JWT_SECRET,
   cookieSecret: process.env.COOKIE_SECRET,
   store_cors: STORE_CORS,
@@ -137,5 +137,5 @@ module.exports = {
   },
   projectConfig,
   plugins,
-  // modules,
+  modules,
 };
