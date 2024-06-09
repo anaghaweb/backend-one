@@ -1,10 +1,5 @@
 import { dataSource } from "@medusajs/medusa/dist/loaders/database";
-import { ProductReview } from "src/models/product-review"
-
-// @EntityRepository(ProductReview)
-// export class ProductReviewRepository extends Repository<ProductReview>{
-
-// }
+import {ProductReview}  from '../models/product-review'
 
 const ProductReviewRepository = dataSource.getRepository(ProductReview)
 

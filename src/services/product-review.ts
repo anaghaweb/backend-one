@@ -1,6 +1,6 @@
 import { EntityManager, IsNull, Not } from "typeorm";
-import { ProductReview } from "src/models/product-review";
-import ProductReviewRepository from "src/repositories/product-review";
+import {ProductReview} from '../models/product-review'
+import ProductReviewRepository from "../repositories/product-review";
 import { TransactionBaseService } from "@medusajs/medusa";
 
 interface InjectedDependencies {

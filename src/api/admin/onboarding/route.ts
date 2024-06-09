@@ -3,6 +3,8 @@ import { EntityManager } from "typeorm";
 
 import OnboardingService from "../../../services/onboarding";
 import { UpdateOnboardingStateInput } from "src/types/onboarding";
+
+
 export async function GET(req: MedusaRequest, res: MedusaResponse) {
   const onboardingService: OnboardingService =
     req.scope.resolve("onboardingService");
@@ -23,5 +25,5 @@ export async function POST(req: MedusaRequest, res: MedusaResponse) {
       .update(req.body as UpdateOnboardingStateInput);
   });
 
-  res.status(200).json({ status });
+  res.status(200).json({ status }); 
 }

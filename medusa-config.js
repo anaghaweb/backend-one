@@ -48,13 +48,13 @@ const plugins = [
     resolve: "@medusajs/admin",
     /** @type {import('@medusajs/admin').PluginOptions} */
     options: {
-      autoRebuild: true,
-      serve: false,
+      autoRebuild: false,
+      serve: true,
       backend: process.env.MEDUSA_ADMIN_BACKEND_URL,
       path: "/app",
       outDir: "build",
       develop: {
-        open: false,
+        open: true,
         port: 7001,
         logLevel: "error",
         stats: "debug",
