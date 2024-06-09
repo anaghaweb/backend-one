@@ -138,5 +138,5 @@ module.exports = {
   },
   projectConfig,
   plugins,
-  // modules,
+   modules,
 };

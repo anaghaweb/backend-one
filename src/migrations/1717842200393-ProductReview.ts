@@ -50,7 +50,7 @@ export class ProductReview1717842200393 implements MigrationInterface {
                 }
             ]
         }), true);
-                
+                // if is primary not defined uncomment below line to create primary key for the table
             // await queryRunner.createPrimaryKey("product_review", ["id"])
             await queryRunner.createForeignKey("product_review", new TableForeignKey({
                 columnNames: ["product_id"],

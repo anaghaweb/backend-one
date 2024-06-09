@@ -1,7 +1,6 @@
 import { BaseEntity, Product } from "@medusajs/medusa"
 import { BeforeInsert, Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm"
 import { Max, Min } from "class-validator"
-
 import { generateEntityId } from "@medusajs/medusa/dist/utils"
 
 @Entity()
