@@ -1,8 +1,12 @@
 import { BaseService } from "medusa-interfaces";
+import { ProductReviewRepository } from "src/repositories/product-review";
+import { dataSource } from "@medusajs/medusa/dist/loaders/database";
+import { ProductReview } from "src/models/product-review";
 
 class ProductReviewService extends BaseService {
   constructor({ productReviewRepository, manager }) {
     super();
+    // this.productReviewRepository = dataSource.getRepository(ProductReview).extend(ProductReviewRepository);
     this.productReviewRepository = productReviewRepository
     this.manager = manager
   }
