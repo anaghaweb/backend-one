@@ -8,4 +8,4 @@ import { ProductReview } from "src/models/product-review"
 
 const ProductReviewRepository = dataSource.getRepository(ProductReview)
 
-export default ProductReviewRepository
+export default ProductReviewRepository 

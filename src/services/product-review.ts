@@ -1,4 +1,3 @@
-import { BaseService } from "medusa-interfaces";
 import { EntityManager, IsNull, Not } from "typeorm";
 import { ProductReview } from "src/models/product-review";
 import ProductReviewRepository from "src/repositories/product-review";
