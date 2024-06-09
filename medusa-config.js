@@ -33,7 +33,7 @@ const STORE_CORS = process.env.STORE_CORS;
 const DATABASE_URL =
   process.env.DATABASE_URL || "postgres://postgres.oexbuheeoqkcnyxyahkh:supaBase.123@@aws-0-ap-south-1.pooler.supabase.com:5432/postgres";
 
-const REDIS_URL = process.env.REDIS_URL || "redis://red-cnirq6821fec73ctpdr0:6379";
+const REDIS_URL = process.env.REDIS_URL || "redis://red-cnfef8q0si5c739lj7dg:6379";
 
 const plugins = [
   `medusa-fulfillment-manual`,
