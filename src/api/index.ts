@@ -3,14 +3,12 @@ import bodyParser from "body-parser"
 import { ConfigModule } from "@medusajs/medusa"  
 import { getConfigFile } from "medusa-core-utils" 
 import {MedusaRequest, MedusaResponse } from '@medusajs/medusa'
-import { EntityManager } from "typeorm"
-import { ProductReview } from "../models/product-review"
 import ProductReviewService from "../services/product-review"
 import { ProductReviewInput } from "src/types/review"
 import path from "path";
 import cors from "cors"
 
-const rootDir = path.resolve(__dirname, "../../"); // Adjust this if necessary
+const rootDir = path.resolve(__dirname, "../../");
 const { configModule } = getConfigFile<ConfigModule>(rootDir, 'medusa-config');
 
 const store_cors= process.env.STORE_CORS as string
@@ -21,8 +19,12 @@ export default () => {
   const router = Router()
   const storeCorsOptions = {
     origin: store_cors.split(","),
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true,
   }
+
+  router.use(cors(storeCorsOptions));
+
   console.log("config Module", configModule.projectConfig.store_cors?.toString())
   router.get("/store/products/:id/reviews", cors(storeCorsOptions), (req:MedusaRequest, res:MedusaResponse) => {
     const productReviewService:ProductReviewService = req.scope.resolve("productReviewService")
@@ -30,7 +32,9 @@ export default () => {
       return res.json({
         product_reviews
       })
-    })
+    }).catch((error) => {
+      return res.status(500).json({ error: error.message });
+    });
   })
 
   router.use(bodyParser.json())
@@ -38,12 +42,14 @@ export default () => {
 
   router.post("/store/products/:id/reviews", cors(storeCorsOptions), (req, res:MedusaResponse) => {
     const productReviewService:ProductReviewService = req.scope.resolve("productReviewService")
-    const data = req.body.data as ProductReviewInput;
+    const data = req.body as ProductReviewInput;
     productReviewService.addProductReview(req.params.id, data).then((product_review) => {
       return res.json({
         product_review
       })
-    })
+    }).catch((error) => {
+      return res.status(500).json({ error: error.message });
+    });
   })
 
   const corsOptions = {
@@ -57,7 +63,9 @@ export default () => {
       return res.json({
         product_reviews
       })
-    })
+    }).catch((error) => {
+      return res.status(500).json({ error: error.message });
+    });
   })
 
   return router;
