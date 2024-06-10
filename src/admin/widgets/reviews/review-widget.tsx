@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { GoStar } from "react-icons/go";
 import type { WidgetConfig, ProductDetailsWidgetProps } from "@medusajs/admin";
-import { ProductReview } from "src/models/product-review";
+import { ProductReview } from "../../../models/product-review";
 import { Button, Container, Heading, Text, clx } from "@medusajs/ui";
 
 const ReviewWidget = ({ product, notify }: ProductDetailsWidgetProps) => {
   const [reviews, setReviews] = useState<ProductReview[] | null>(null);
 
   useEffect(() => {
-    fetch(`/products/${product.id}/reviews`, {
+    fetch(`admin/products/${product.id}/reviews`, {
       credentials: "include",
     })
     .then((response) => response.json()) // Parse JSON data here
@@ -18,9 +18,9 @@ const ReviewWidget = ({ product, notify }: ProductDetailsWidgetProps) => {
 
   return (
     <Container className="flex flex-col text-ui-fg-subtle mt-10 h-auto px-2">
-        <Heading level="h1" className="text-ui-fg-base">Get started</Heading>
+        <Heading level="h1" className="font-bold pl-2">Customer Reviews</Heading>
       {!reviews && (
-        <Text>There are no reviews for this product</Text>
+        <Text className="pl-2">There are no reviews for this product</Text>
       )}`
       {reviews &&
         reviews.length > 0 &&
