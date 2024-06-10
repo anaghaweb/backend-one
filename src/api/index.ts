@@ -18,7 +18,7 @@ const store_cors= process.env.STORE_CORS as string
 export default () => {
   const router = Router()
   const storeCorsOptions = {
-    origin: 'http://192.168.0.102:3000, https://stock-fe-01.vercel.app/', // Replace with your store domain
+    origin: ['http://192.168.0.102:3000, https://stock-fe-01.vercel.app/'], // Replace with your store domain
     methods: ['GET', 'POST', 'PUT', 'DELETE','OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,

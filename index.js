@@ -9,7 +9,7 @@ const loaders = require("@medusajs/medusa/dist/loaders/index").default
     const app = express();
     const directory = process.cwd() ;
     const storeCorsOptions = {
-      origin: 'http://192.168.0.102:3000, https://stock-fe-01.vercel.app/', // Replace with your store domain
+      origin: ['http://192.168.0.102:3000, https://stock-fe-01.vercel.app/'], // Replace with your store domain
       methods: ['GET', 'POST', 'PUT', 'DELETE','OPTIONS'],
       allowedHeaders: ['Content-Type', 'Authorization'],
       credentials: true,
