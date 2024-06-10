@@ -31,9 +31,9 @@ const AUTH_CORS = process.env.AUTH_CORS;
 const STORE_CORS = process.env.STORE_CORS;
 
 const DATABASE_URL =
-  process.env.DATABASE_URL || "postgres://postgres.oexbuheeoqkcnyxyahkh:supaBase.123@@aws-0-ap-south-1.pooler.supabase.com:5432/postgres";
+  process.env.DATABASE_URL ;
 
-const REDIS_URL = process.env.REDIS_URL || "redis://red-cnfef8q0si5c739lj7dg:6379";
+const REDIS_URL = process.env.REDIS_URL ;
 
 const plugins = [
   `medusa-fulfillment-manual`,
@@ -48,13 +48,13 @@ const plugins = [
     resolve: "@medusajs/admin",
     /** @type {import('@medusajs/admin').PluginOptions} */
     options: {
-      autoRebuild: false,
-      serve: true,
+      autoRebuild: true,
+      serve: false,
       backend: process.env.MEDUSA_ADMIN_BACKEND_URL,
       path: "/app",
       outDir: "build",
       develop: {
-        open: true,
+        open: false,
         port: 7001,
         logLevel: "error",
         stats: "debug",
@@ -116,7 +116,7 @@ const projectConfig = {
   admin_cors: ADMIN_CORS,
   auth_cors: AUTH_CORS,
   
-  //Uncomment the following lines to enable REDIS
+  // Uncomment the following lines to enable REDIS
  redis_url: REDIS_URL,
   
   http_compression: {
