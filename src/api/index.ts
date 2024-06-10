@@ -23,7 +23,14 @@ export default () => {
     credentials: true,
   }
 
+  const adminCorsOptions = {
+    origin: admin_cors.split(","),
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    credentials: true,
+  }
+
   router.use(cors(storeCorsOptions));
+  router.use(cors(adminCorsOptions));
 
   console.log("config Module", configModule.projectConfig.store_cors?.toString())
   router.get("/store/products/:id/reviews", cors(storeCorsOptions), (req:MedusaRequest, res:MedusaResponse) => {
