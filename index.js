@@ -1,12 +1,32 @@
 const express = require("express")
+const cors = require('cors');
 const { GracefulShutdownServer } = require("medusa-core-utils")
 
 const loaders = require("@medusajs/medusa/dist/loaders/index").default
 
 ;(async() => {
   async function start() {
-    const app = express()
-    const directory = process.cwd()
+    const app = express();
+    const directory = process.cwd() ;
+    const storeCorsOptions = {
+      origin: 'http://192.168.0.102:3000, https://stock-fe-01.vercel.app/', // Replace with your store domain
+      methods: ['GET', 'POST', 'PUT', 'DELETE','OPTIONS'],
+      allowedHeaders: ['Content-Type', 'Authorization'],
+      credentials: true,
+    };
+
+    const adminCorsOptions = {
+      origin: 'https://admin-one-inky.vercel.app/', // Replace with your admin domain
+      methods: ['GET', 'POST', 'PUT', 'DELETE','OPTIONS'],
+      allowedHeaders: ['Content-Type', 'Authorization'],
+      credentials: true,
+    };
+
+    // Apply CORS middleware for store routes
+    app.use('/store', cors(storeCorsOptions))
+
+    // Apply CORS middleware for admin routes
+    app.use('/admin', cors(adminCorsOptions))
 
     try {
       const { container } = await loaders({

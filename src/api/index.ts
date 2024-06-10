@@ -18,19 +18,21 @@ const store_cors= process.env.STORE_CORS as string
 export default () => {
   const router = Router()
   const storeCorsOptions = {
-    origin: store_cors.split(","),
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    origin: 'http://192.168.0.102:3000, https://stock-fe-01.vercel.app/', // Replace with your store domain
+    methods: ['GET', 'POST', 'PUT', 'DELETE','OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
-  }
+  };
 
   const adminCorsOptions = {
-    origin: admin_cors.split(","),
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    origin: 'https://admin-one-inky.vercel.app/', // Replace with your admin domain
+    methods: ['GET', 'POST', 'PUT', 'DELETE','OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
-  }
+  };
 
-  router.use(cors(storeCorsOptions));
-  router.use(cors(adminCorsOptions));
+  router.use('/store',cors(storeCorsOptions));
+  router.use('/admin',cors(adminCorsOptions));
 
   console.log("config Module", configModule.projectConfig.store_cors?.toString())
   router.get("/store/products/:id/reviews", cors(storeCorsOptions), (req:MedusaRequest, res:MedusaResponse) => {
