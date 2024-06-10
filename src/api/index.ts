@@ -39,10 +39,12 @@ export default () => {
     const productReviewService:ProductReviewService = req.scope.resolve("productReviewService")
     productReviewService.getProductReviews(req.params.id).then((product_reviews) => {
       return res.json({
-        product_reviews
+        status: 'success',
+        data: product_reviews,
+        message: 'Product review retreived successfully.'
       })
     }).catch((error) => {
-      return res.status(500).json({ error: error.message });
+      return res.status(500).json({  status:error, error: error.message});
     });
   })
 
@@ -54,10 +56,12 @@ export default () => {
     const data = req.body as ProductReviewInput;
     productReviewService.addProductReview(req.params.id, data).then((product_review) => {
       return res.json({
-        product_review
+        status: 'success',
+        product_review,
+         message: 'Product review added successfully.'
       })
     }).catch((error) => {
-      return res.status(500).json({ error: error.message });
+      return res.status(500).json({ status:error, error: error.message });
     });
   })
 
@@ -70,10 +74,12 @@ export default () => {
     const productReviewService:ProductReviewService = req.scope.resolve("productReviewService")
     productReviewService.getProductReviews(req.params.id).then((product_reviews) => {
       return res.json({
-        product_reviews
+        status: 'success',
+        product_reviews,
+         message: 'Product reviews retrieved successfully.'
       })
     }).catch((error) => {
-      return res.status(500).json({ error: error.message });
+      return res.status(500).json({  status:error, error: error.message });
     });
   })
 
