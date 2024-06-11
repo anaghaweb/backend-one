@@ -7,18 +7,18 @@ export async function GET(req: MedusaRequest, res: MedusaResponse) {
     const productReviewService: ProductReviewService = req.scope.resolve("productReviewService");
     const product_reviews = await productReviewService.getProductReviews(req.params.id);
     if (!product_reviews || product_reviews.length === 0){
-        return res.status(200).json({
+        return res.status(500).json({
             status: 'error',      
             message: 'No poduct reviews for this product yet!',
           });
     }
-    else{
-    return res.status(500).json({
+    
+    return res.status(200).json({
       status: 'success',
       data: product_reviews,
       message: 'Product review retrieved successfully.',
     });
-}
+
   } catch (error) {
     return res.status(500).json({
       status: 'error',
