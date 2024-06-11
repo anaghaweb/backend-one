@@ -60,6 +60,7 @@ export default () => {
     (req, res:MedusaResponse) => {
     const productReviewService:ProductReviewService = req.scope.resolve("productReviewService")
     const data = req.body as ProductReviewInput;
+    
     productReviewService.addProductReview(req.params.id, data).then((product_review) => {
       return res.json({
         status: 'success',

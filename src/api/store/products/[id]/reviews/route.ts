@@ -1,18 +1,19 @@
 import { MedusaRequest, MedusaResponse } from "@medusajs/medusa";
 import ProductReviewService from "../../../../../services/product-review";
+import {ProductReviewInput} from "../../../../../types/review";
 
-export default async function GET(req: MedusaRequest, res: MedusaResponse) {
+export async function GET(req: MedusaRequest, res: MedusaResponse) {
   try {
     const productReviewService: ProductReviewService = req.scope.resolve("productReviewService");
     const product_reviews = await productReviewService.getProductReviews(req.params.id);
-    if(!product_reviews){
-        return res.json({
+    if (!product_reviews || product_reviews.length === 0){
+        return res.status(200).json({
             status: 'error',      
-            message: 'No rpoduct reviews for this product yet!',
+            message: 'No poduct reviews for this product yet!',
           });
     }
     else{
-    return res.json({
+    return res.status(500).json({
       status: 'success',
       data: product_reviews,
       message: 'Product review retrieved successfully.',
@@ -26,3 +27,32 @@ export default async function GET(req: MedusaRequest, res: MedusaResponse) {
     });
   }
 }
+
+export async function POST(req:MedusaRequest, res:MedusaResponse)
+{
+        try{
+        const productReviewService:ProductReviewService = req.scope.resolve("productReviewService")
+        const data = req.body as ProductReviewInput;
+        
+       const product_review = await productReviewService.addProductReview(req.params.id, data);
+            if(!product_review){
+                return res.status(200).json({
+                    status: 'error',
+                    message: 'Could not post your product review'
+                })
+            }
+            return res.json({
+              status: 'success',
+              product_review,
+               message: 'Product review added successfully.'
+            })
+            }
+            catch (error:any) {
+                return res.status(500).json({
+                  status: 'error',
+                  message: 'Failed submit product review.',
+                  error: error.message,
+                });
+              }
+            }
+
