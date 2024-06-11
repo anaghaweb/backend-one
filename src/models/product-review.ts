@@ -1,35 +1,44 @@
-import { BaseEntity, Product } from "@medusajs/medusa"
-import { BeforeInsert, Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm"
-import { Max, Min } from "class-validator"
-import { generateEntityId } from "@medusajs/medusa/dist/utils"
+import { BaseEntity, Product } from "@medusajs/medusa";
+import { BeforeInsert, Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
+import { Max, Min } from "class-validator";
+import { generateEntityId } from "@medusajs/medusa/dist/utils";
 
 @Entity()
 export class ProductReview extends BaseEntity {
 
   @Index()
   @Column({ type: "varchar", nullable: true })
-  product_id: string = ""
+  product_id!: string;
 
   @ManyToOne(() => Product)
   @JoinColumn({ name: "product_id" })
-  product: Product = new Product()
+  product: Product;
 
   @Column({ type: "varchar", nullable: false })
-  title: string = ""
+  title: string;
 
   @Column({ type: "varchar", nullable: false })
-  user_name: string = ""
+  user_name: string;
 
   @Column({ type: "int" })
   @Min(1)
   @Max(5)
-  rating: number = 0
+  rating: number;
 
-  @Column({ nullable: false })
-  content: string = ""
+  @Column({ type: "text", nullable: false })
+  content: string;
 
   @BeforeInsert()
   private beforeInsert(): void {
-    this.id = generateEntityId(this.id, "prev")
+    this.id = generateEntityId(this.id, "prev");
+  }
+
+  constructor() {
+    super();
+    this.product = new Product();
+    this.title = "";
+    this.user_name = "";
+    this.rating = 0;
+    this.content = "";
   }
 }
