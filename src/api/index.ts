@@ -17,25 +17,27 @@ const store_cors= process.env.STORE_CORS as string
 
 export default () => {
   const router = Router()
-  const storeCorsOptions = {
-    origin: 'http://192.168.0.102:3000', // Replace with your store domain
-    methods: ['GET', 'POST', 'PUT', 'DELETE','OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true,
-  };
+  // const storeCorsOptions = {
+  //   origin: 'http://192.168.0.102:3000', // Replace with your store domain
+  //   methods: ['GET', 'POST', 'PUT', 'DELETE','OPTIONS'],
+  //   allowedHeaders: ['Content-Type', 'Authorization'],
+  //   credentials: true,
+  // };
 
-  const adminCorsOptions = {
-    origin: 'https://admin-one-inky.vercel.app/', // Replace with your admin domain
-    methods: ['GET', 'POST', 'PUT', 'DELETE','OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true,
-  };
+  // const adminCorsOptions = {
+  //   origin: 'https://admin-one-inky.vercel.app/', // Replace with your admin domain
+  //   methods: ['GET', 'POST', 'PUT', 'DELETE','OPTIONS'],
+  //   allowedHeaders: ['Content-Type', 'Authorization'],
+  //   credentials: true,
+  // };
 
-  router.use('/store',cors(storeCorsOptions));
-  router.use('/admin',cors(adminCorsOptions));
+  // router.use('/store',cors(storeCorsOptions));
+  // router.use('/admin',cors(adminCorsOptions));
 
   console.log("config Module", configModule.projectConfig.store_cors?.toString())
-  router.get("/store/products/:id/reviews", cors(storeCorsOptions), (req:MedusaRequest, res:MedusaResponse) => {
+  router.get("/store/products/:id/reviews",
+    //  cors(storeCorsOptions), 
+     (req:MedusaRequest, res:MedusaResponse) => {
     const productReviewService:ProductReviewService = req.scope.resolve("productReviewService")
     productReviewService.getProductReviews(req.params.id).then((product_reviews) => {
       return res.json({
@@ -49,9 +51,13 @@ export default () => {
   })
 
   router.use(bodyParser.json())
-  router.options("/store/products/:id/reviews", cors(storeCorsOptions))
+  router.options("/store/products/:id/reviews", 
+    // cors(storeCorsOptions)
+  )
 
-  router.post("/store/products/:id/reviews", cors(storeCorsOptions), (req, res:MedusaResponse) => {
+  router.post("/store/products/:id/reviews", 
+    // cors(storeCorsOptions), 
+    (req, res:MedusaResponse) => {
     const productReviewService:ProductReviewService = req.scope.resolve("productReviewService")
     const data = req.body as ProductReviewInput;
     productReviewService.addProductReview(req.params.id, data).then((product_review) => {
@@ -69,8 +75,12 @@ export default () => {
     origin: admin_cors.split(","),
     credentials: true,
   }
-  router.options("/admin/products/:id/reviews", cors(corsOptions))
-  router.get("/admin/products/:id/reviews", cors(corsOptions), async (req:MedusaRequest, res:MedusaResponse) => {
+  router.options("/admin/products/:id/reviews", 
+    // cors(corsOptions)
+  )
+  router.get("/admin/products/:id/reviews", 
+    // cors(corsOptions), 
+    async (req:MedusaRequest, res:MedusaResponse) => {
     const productReviewService:ProductReviewService = req.scope.resolve("productReviewService")
     productReviewService.getProductReviews(req.params.id).then((product_reviews) => {
       return res.json({
