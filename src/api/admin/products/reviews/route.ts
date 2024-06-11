@@ -3,8 +3,8 @@ import bodyParser from "body-parser"
 import { ConfigModule } from "@medusajs/medusa"  
 import { getConfigFile } from "medusa-core-utils" 
 import {MedusaRequest, MedusaResponse } from '@medusajs/medusa'
-import ProductReviewService from "../../../../../services/product-review"
-import { ProductReviewInput } from "../../../../../types/review"
+import ProductReviewService from "../../../../services/product-review"
+import { ProductReviewInput } from "../../../../types/review"
 import path from "path";
 import cors from "cors"
 

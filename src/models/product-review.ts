@@ -10,9 +10,9 @@ export class ProductReview extends BaseEntity {
   @Column({ type: "varchar", nullable: false })
   product_id: string;
 
-  @ManyToOne(() => Product)
-  @JoinColumn({ name: "product_id" })
-  product: Product;
+  // @ManyToOne(() => Product)
+  // @JoinColumn({ name: "product_id" })
+  // product: Product;
 
   @Column({ type: "varchar", nullable: false })
   title: string;
@@ -36,7 +36,7 @@ export class ProductReview extends BaseEntity {
   constructor() {
     super();
     this.product_id = "";
-    this.product = new Product();
+    // this.product = new Product();
     this.title = "";
     this.user_name = "";
     this.rating = 0;
