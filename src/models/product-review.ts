@@ -7,7 +7,7 @@ import { generateEntityId } from "@medusajs/medusa/dist/utils";
 export class ProductReview extends BaseEntity {
 
   @Index()
-  @Column({ type: "varchar", nullable: true })
+  @Column({ type: "varchar", nullable: false })
   product_id!: string;
 
   @ManyToOne(() => Product)

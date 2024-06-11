@@ -34,6 +34,7 @@ export async function POST(req:MedusaRequest, res:MedusaResponse)
         const productReviewService:ProductReviewService = req.scope.resolve("productReviewService")
         const data = req.body as ProductReviewInput;
         
+        
        const product_review = await productReviewService.addProductReview(req.params.id, data);
             if(!product_review){
                 return res.status(200).json({
