@@ -13,7 +13,7 @@ export async function GET(req: MedusaRequest, res: MedusaResponse) {
           });
     }
     
-    return res.status(200).json({
+    return res.json({
       status: 'success',
       data: product_reviews,
       message: 'Product review retrieved successfully.',
