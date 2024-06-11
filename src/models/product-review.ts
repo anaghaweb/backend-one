@@ -8,7 +8,7 @@ export class ProductReview extends BaseEntity {
 
   @Index()
   @Column({ type: "varchar", nullable: false })
-  product_id!: string;
+  product_id: string;
 
   @ManyToOne(() => Product)
   @JoinColumn({ name: "product_id" })
@@ -35,6 +35,7 @@ export class ProductReview extends BaseEntity {
 
   constructor() {
     super();
+    this.product_id = "";
     this.product = new Product();
     this.title = "";
     this.user_name = "";

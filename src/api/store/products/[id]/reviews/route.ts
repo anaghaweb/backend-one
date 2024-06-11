@@ -4,9 +4,9 @@ import {ProductReviewInput} from "../../../../../types/review";
 
 export async function GET(req: MedusaRequest, res: MedusaResponse) {
   try {
-    const id = req.path.split('/')[3]
+    const product_id = req.path.split('/')[3]
     const productReviewService: ProductReviewService = req.scope.resolve("productReviewService");
-    const product_reviews = await productReviewService.getProductReviews(id);
+    const product_reviews = await productReviewService.getProductReviews(product_id);
     
     if (!product_reviews || product_reviews.length === 0){
         return res.status(500).json({
@@ -33,12 +33,12 @@ export async function GET(req: MedusaRequest, res: MedusaResponse) {
 export async function POST(req:MedusaRequest, res:MedusaResponse)
 {
         try{
-          const id = req.path.split('/')[3]
+          
         const productReviewService:ProductReviewService = req.scope.resolve("productReviewService")
         const data = req.body as ProductReviewInput;
         
-        
-       const product_review = await productReviewService.addProductReview(id, data);
+        const product_id = req.path.split('/')[3]
+       const product_review = await productReviewService.addProductReview(product_id, data);
             if(!product_review){
                 return res.status(200).json({
                     status: 'error',
