@@ -34,7 +34,7 @@ export default () => {
   // router.use('/store',cors(storeCorsOptions));
   // router.use('/admin',cors(adminCorsOptions));
 
-  console.log("config Module", configModule.projectConfig.store_cors?.toString())
+
   router.get("/store/products/:id/reviews",
     //  cors(storeCorsOptions), 
      (req:MedusaRequest, res:MedusaResponse) => {
