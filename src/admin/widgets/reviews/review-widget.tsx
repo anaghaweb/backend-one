@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { GoStar } from "react-icons/go";
 import type { WidgetConfig, ProductDetailsWidgetProps } from "@medusajs/admin";
-import { ProductReview } from "../../../models/product-review";
+import { ApiResponse,Review } from "../../../models/product-review";
 import { Button, Container, Heading, Text, clx } from "@medusajs/ui";
 
 const ReviewWidget = ({ product, notify }: ProductDetailsWidgetProps) => {
-  const [reviews, setReviews] = useState<ProductReview[] | null>(null);
+  const [reviews, setReviews] = useState<ApiResponse | null>(null);
   const BACKEND_URL = process.env.MEDUSA_ADMIN_BACKEND_URL
   useEffect(() => {
 
@@ -38,10 +38,9 @@ const ReviewWidget = ({ product, notify }: ProductDetailsWidgetProps) => {
       {!reviews && (
         <Text className="pl-2">There are no reviews for this product</Text>
       )}
-      {reviews &&
-        reviews.length > 0 &&
-        reviews?.map((review) => (
-          <div key={review?.id} className="bg-slate-100 p-2 mb-2">
+      { reviews.product_reviews.length > 0 &&
+        reviews?.product_reviews?.map((review:Review) => (
+          <div key={review.id} className="bg-slate-100 p-2 mb-2">
             <div className="flex justify-between">
               <div className="mr-4">
                 <Text className="text-ui-fg-base mb-3 font-bold">
