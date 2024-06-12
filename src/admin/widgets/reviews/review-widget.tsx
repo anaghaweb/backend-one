@@ -8,12 +8,20 @@ const ReviewWidget = ({ product, notify }: ProductDetailsWidgetProps) => {
   const [reviews, setReviews] = useState<ProductReview[] | null>(null);
 
   useEffect(() => {
-    fetch(`admin/products/${product.id}/reviews`, {
-      credentials: "include",
-    })
-    .then((response) => response.json()) // Parse JSON data here
-    .then((data) => setReviews(data.product_reviews)) // Use parsed data
-      .catch((e) => console.error(e));
+
+    const fetchReviews = async () => {
+      const reviews = await fetch(`admin/products/${product.id}/reviews`, {
+        credentials: "include",
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        cache: "no-cache",
+      })
+      .then((response) => response.json()) // Parse JSON data here
+      .then((data) => setReviews(data.product_reviews)) // Use parsed data
+        .catch((e) => console.error(e)); 
+    }
+    fetchReviews()
+     
   }, []);
 
   return (
