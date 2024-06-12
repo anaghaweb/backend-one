@@ -6,30 +6,38 @@ import { Button, Container, Heading, Text, clx } from "@medusajs/ui";
 
 const ReviewWidget = ({ product, notify }: ProductDetailsWidgetProps) => {
   const [reviews, setReviews] = useState<ProductReview[] | null>(null);
-
+  const BACKEND_URL = process.env.MEDUSA_ADMIN_BACKEND_URL
   useEffect(() => {
 
     const fetchReviews = async () => {
-      const reviews = await fetch(`admin/products/${product.id}/reviews`, {
-        credentials: "include",
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-        cache: "no-cache",
+      try{
+      const response = await fetch(`${BACKEND_URL}/admin/products/${product.id}/reviews`,{
+        credentials:'include',
+        method:'GET',
+        headers:{
+          'Content-Type':'application/json'
+        },
+        cache:'no-cache'
       })
-      .then((response) => response.json()) // Parse JSON data here
-      .then((data) => setReviews(data.product_reviews)) // Use parsed data
-        .catch((e) => console.error(e)); 
+      if(!response.ok){
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      setReviews(data);
     }
-    fetchReviews()
-     
-  }, []);
+    catch(err:any){
+      throw new Error(err)
+    }   
+}
+    fetchReviews() 
+  }, [product.id]);
 
   return (
     <Container className="flex flex-col text-ui-fg-subtle mt-10 h-auto px-2">
         <Heading level="h1" className="font-bold pl-2">Customer Reviews</Heading>
       {!reviews && (
         <Text className="pl-2">There are no reviews for this product</Text>
-      )}`
+      )}
       {reviews &&
         reviews.length > 0 &&
         reviews?.map((review) => (
