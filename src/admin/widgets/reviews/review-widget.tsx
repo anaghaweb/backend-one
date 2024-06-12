@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { GoStar } from "react-icons/go";
 import type { WidgetConfig, ProductDetailsWidgetProps } from "@medusajs/admin";
-import { ApiResponse,Review } from "../../../models/product-review";
 import { Button, Container, Heading, Text, clx } from "@medusajs/ui";
-
+import { ApiResponse, Review } from "src/types/review";
 const ReviewWidget = ({ product, notify }: ProductDetailsWidgetProps) => {
   const [reviews, setReviews] = useState<ApiResponse | null>(null);
   const BACKEND_URL = process.env.MEDUSA_ADMIN_BACKEND_URL
@@ -30,7 +29,7 @@ const ReviewWidget = ({ product, notify }: ProductDetailsWidgetProps) => {
       throw new Error(err)
     }   
 }
-   await fetchReviews() 
+  fetchReviews() 
   }, [product.id]);
 
   return (
@@ -39,8 +38,8 @@ const ReviewWidget = ({ product, notify }: ProductDetailsWidgetProps) => {
       {!reviews && (
         <Text className="pl-2">There are no reviews for this product</Text>
       )}
-      { reviews?.product_reviews?.length > 0 &&
-        reviews?.product_reviews?.map((review:Review) => (
+      { reviews && reviews?.data?.length > 0 &&
+        reviews?.data?.map((review:Review) => (
           <div key={review.id} className="bg-slate-100 p-2 mb-2">
             <div className="flex justify-between">
               <div className="mr-4">

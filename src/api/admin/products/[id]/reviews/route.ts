@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { MedusaRequest, MedusaResponse } from '@medusajs/medusa';
-import ProductReviewService from "../../../../services/product-review";
-import { applyCors } from '../../../../middleware/cors';
+import ProductReviewService from "../../../../../services/product-review";
+import { applyCors } from '../../../../../middleware/cors';
 
 export default () => {
     const router = Router();
@@ -21,9 +21,9 @@ export default () => {
                 }
                 return res.json({
                     status: 'success',
-                    product_reviews,
-                    message: 'Product reviews retrieved successfully.'
-                });
+                    data: product_reviews,
+                    message: 'Product review retrieved successfully.',
+                  });
             } catch (error:any) {
                 return res.status(500).json({ status: 'error', error: error.message });
             }
