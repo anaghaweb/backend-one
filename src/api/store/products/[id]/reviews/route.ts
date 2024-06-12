@@ -2,9 +2,18 @@ import { MedusaRequest, MedusaResponse } from "@medusajs/medusa";
 import ProductReviewService from "../../../../../services/product-review";
 import {ProductReviewInput} from "../../../../../types/review";
 
-export async function GET(req: MedusaRequest, res: MedusaResponse) {
+import { Router } from "express"
+import {applyCors } from '../../../../../middleware/cors'
+
+
+export default () => {
+
+const router = Router();
+router.use(applyCors);
+
+router.get("/store/products/:id/reviews", async (req: MedusaRequest, res: MedusaResponse) => {
   try {
-    const product_id = req.path.split('/')[3].toString()
+    const product_id = req.params.id
     const productReviewService: ProductReviewService = req.scope.resolve("productReviewService");
     const product_reviews = await productReviewService.getProductReviews(product_id);
     
@@ -28,16 +37,15 @@ export async function GET(req: MedusaRequest, res: MedusaResponse) {
       error: 'Failed to retrieve product reviews.',
     });
   }
-}
-
-export async function POST(req:MedusaRequest, res:MedusaResponse)
+})
+ router.post("/store/products/:id/reviews", async (req: MedusaRequest, res: MedusaResponse) => {
 {
         try{
           
         const productReviewService:ProductReviewService = req.scope.resolve("productReviewService")
         const data = req.body as ProductReviewInput;
         
-        const product_id = req.path.split('/')[3].toString()
+        const product_id = req.params.id
        const product_review = await productReviewService.addProductReview(product_id, data);
             if(!product_review){
                 return res.status(500).json({
@@ -59,4 +67,5 @@ export async function POST(req:MedusaRequest, res:MedusaResponse)
                 });
               }
             }
-
+          })
+        }
