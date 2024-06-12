@@ -7,6 +7,7 @@ import { Button, Container, Heading, Text, clx } from "@medusajs/ui";
 const ReviewWidget = ({ product, notify }: ProductDetailsWidgetProps) => {
   const [reviews, setReviews] = useState<ApiResponse | null>(null);
   const BACKEND_URL = process.env.MEDUSA_ADMIN_BACKEND_URL
+
   useEffect(() => {
 
     const fetchReviews = async () => {
@@ -15,7 +16,7 @@ const ReviewWidget = ({ product, notify }: ProductDetailsWidgetProps) => {
         credentials:'include',
         method:'GET',
         headers:{
-          'Content-Type':'application/json'
+          'Content-Type':'application/json',         
         },
         cache:'no-cache'
       })
@@ -29,7 +30,7 @@ const ReviewWidget = ({ product, notify }: ProductDetailsWidgetProps) => {
       throw new Error(err)
     }   
 }
-    fetchReviews() 
+   await fetchReviews() 
   }, [product.id]);
 
   return (
@@ -38,7 +39,7 @@ const ReviewWidget = ({ product, notify }: ProductDetailsWidgetProps) => {
       {!reviews && (
         <Text className="pl-2">There are no reviews for this product</Text>
       )}
-      { reviews.product_reviews.length > 0 &&
+      { reviews?.product_reviews?.length > 0 &&
         reviews?.product_reviews?.map((review:Review) => (
           <div key={review.id} className="bg-slate-100 p-2 mb-2">
             <div className="flex justify-between">
