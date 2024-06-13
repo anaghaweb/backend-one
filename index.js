@@ -4,6 +4,7 @@ const { GracefulShutdownServer } = require("medusa-core-utils")
 import { applyCors } from "./src/middleware/cors";
 const loaders = require("@medusajs/medusa/dist/loaders/index").default
 
+
 ;(async() => {
   async function start() {
     const app = express();
@@ -27,7 +28,7 @@ const loaders = require("@medusajs/medusa/dist/loaders/index").default
 
     // // Apply CORS middleware for admin routes
     // app.use('/admin', cors(adminCorsOptions))
-    app.use(applyCors);
+    app.options("*",cors());
 
     try {
       const { container } = await loaders({
