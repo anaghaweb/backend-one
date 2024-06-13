@@ -1,33 +1,31 @@
-import { Router } from "express";
-import { MedusaRequest, MedusaResponse } from '@medusajs/medusa';
+import { MedusaRequest, MedusaResponse } from "@medusajs/medusa";
 import ProductReviewService from "../../../../../services/product-review";
-import { applyCors } from '../../../../../middleware/cors';
+import {ProductReviewInput} from "../../../../../types/review";
 
-export default () => {
-    const router = Router();
-    // router.use(applyCors);
+export async function GET(req: MedusaRequest, res: MedusaResponse) {
+  try {
+    const product_id = req.path.split('/')[3].toString()
+    const productReviewService: ProductReviewService = req.scope.resolve("productReviewService");
+    const product_reviews = await productReviewService.getProductReviews(product_id);
+    
+    if (!product_reviews || product_reviews.length === 0){
+        return res.status(500).json({
+            status: 'error',      
+            message: 'No poduct reviews for this product yet!',
+          });
+    }
+    
+    return res.json({
+      status: 'success',
+      data: product_reviews,
+      message: 'Product review retrieved successfully.',
+    });
 
-    router.get("/admin/products/:id/reviews",
-        async (req: MedusaRequest, res: MedusaResponse) => {
-            try {
-                const productReviewService: ProductReviewService = req.scope.resolve("productReviewService");
-                const product_reviews = await productReviewService.getProductReviews(req.params.id);
-
-                if (!product_reviews || product_reviews.length === 0) {
-                    return res.status(500).json({
-                        status: 'error',
-                        message: 'No product reviews for this product yet!',
-                    });
-                }
-                return res.json({
-                    status: 'success',
-                    data: product_reviews,
-                    message: 'Product review retrieved successfully.',
-                  });
-            } catch (error:any) {
-                return res.status(500).json({ status: 'error', error: error.message });
-            }
-        });
-
-    return router;
+  } catch (error) {
+    return res.status(500).json({
+      status: 'error',
+      message: 'Failed to retrieve product reviews.',
+      error: 'Failed to retrieve product reviews.',
+    });
+  }
 }
