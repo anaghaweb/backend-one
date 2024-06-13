@@ -1,7 +1,7 @@
 import cors from "cors";
 
 const corsOptions = {
-    origin: '*', // Allow all origins for testing
+    origin: ['http://192.168.0.103:3000', 'https://admin-one-inky.vercel.app', 'https://stock-fe-01.vercel.app'],
     credentials: true, // Include credentials if necessary (e.g., cookies, authorization headers)
 };
 
