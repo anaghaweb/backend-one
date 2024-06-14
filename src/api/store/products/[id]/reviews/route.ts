@@ -8,9 +8,10 @@ export async function GET(req: MedusaRequest, res: MedusaResponse) {
     const productReviewService: ProductReviewService = req.scope.resolve("productReviewService");
     const product_reviews = await productReviewService.getProductReviews(product_id);
     
-    if (!product_reviews || product_reviews.length === 0){
+    if (!product_reviews || product_reviews.length === 0 product_reviews === null){
         return res.status(500).json({
-            status: 'error',      
+            status: 'error', 
+            data:[],     
             message: 'No poduct reviews for this product yet!',
           });
     }
@@ -23,9 +24,9 @@ export async function GET(req: MedusaRequest, res: MedusaResponse) {
 
   } catch (error) {
     return res.status(500).json({
-      status: 'error',
-      message: 'Failed to retrieve product reviews.',
-      error: 'Failed to retrieve product reviews.',
+      status: 'error', 
+            data:[],     
+            message: 'No poduct reviews for this product yet!',
     });
   }
 }
