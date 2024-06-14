@@ -9,7 +9,7 @@ export async function GET(req: MedusaRequest, res: MedusaResponse) {
     const product_reviews = await productReviewService.getProductReviews(product_id);
     
     if (!product_reviews || product_reviews.length === 0 || product_reviews === null || product_reviews === undefined ){
-      return res.status(500).json({
+      return res.json({
         status: 'error',      
         message: 'No poduct reviews for this product yet!',
       });
