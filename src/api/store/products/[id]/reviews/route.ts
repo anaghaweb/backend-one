@@ -8,7 +8,7 @@ export async function GET(req: MedusaRequest, res: MedusaResponse) {
     const productReviewService: ProductReviewService = req.scope.resolve("productReviewService");
     const product_reviews = await productReviewService.getProductReviews(product_id);
     
-    if (!product_reviews || product_reviews.length === 0 product_reviews === null){
+    if (!product_reviews || product_reviews.length === 0 || product_reviews === null){
         return res.status(500).json({
             status: 'error', 
             data:[],     
