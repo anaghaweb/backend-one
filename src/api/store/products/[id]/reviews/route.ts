@@ -13,8 +13,7 @@ export async function GET(req: MedusaRequest, res: MedusaResponse) {
         status: 'error',      
         message: 'No poduct reviews for this product yet!',
       });
-    }
-    
+    }    
     return res.json({
       status: 'success',
       data: product_reviews,
@@ -31,8 +30,7 @@ export async function GET(req: MedusaRequest, res: MedusaResponse) {
 
 export async function POST(req:MedusaRequest, res:MedusaResponse)
 {
-        try{
-          
+        try{          
         const productReviewService:ProductReviewService = req.scope.resolve("productReviewService")
         const data = req.body as ProductReviewInput;
         
